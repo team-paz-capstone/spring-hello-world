@@ -45,3 +45,13 @@ $ mvn spring-boot:run
 The application should spin up - keep an eye on the terminal for any errors. I'm happy to help troubleshoot.
 
 By default, the application will be running on **localhost:8080**.
+
+
+API Documentation
+---
+I've using the SpringFox library to automatically generate Swagger2 documentation for the API. Documentation can
+be accessed by going to:
+
+```
+http://localhost:8080/swagger-ui.html
+```
