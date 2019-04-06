@@ -55,3 +55,14 @@ be accessed by going to:
 ```
 http://localhost:8080/swagger-ui.html
 ```
+
+
+Troubleshooting
+===
+
+* **java.lang.ExceptionInInitializerError** on application startup ```$mvn spring-boot:run```  
+**Solution**: [The Lombok library doesn't play nice with JDK version 10](https://github.com/rzwitserloot/lombok/issues/1572).  
+Either use JDK version 8, or we can remove this library from the project.  
+JDK version 8 can be downloaded [here](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) Make sure  
+```$java``` points to this new installation by either modifying your ```$PATH```, or by setting the environment  
+variable ```$JAVA_HOME=/path/to/jdk8```
