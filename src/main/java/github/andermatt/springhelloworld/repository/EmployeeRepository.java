@@ -4,6 +4,7 @@ import github.andermatt.springhelloworld.model.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Transactional
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
@@ -23,4 +24,8 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     in the employee table will be returned.
 
     */
+
+    // This is a custom query - find an employee by email address. Again, we don't need to write any SQL - Spring
+    // is able to generate the appropriate SQL by parsing the method name - findByEmail.
+    public Optional<Employee> findByEmail(String email);
 }

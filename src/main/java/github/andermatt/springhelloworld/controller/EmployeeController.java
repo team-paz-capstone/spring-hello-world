@@ -2,16 +2,10 @@ package github.andermatt.springhelloworld.controller;
 
 import github.andermatt.springhelloworld.model.Employee;
 import github.andermatt.springhelloworld.repository.EmployeeRepository;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -45,6 +39,23 @@ public class EmployeeController {
     public ResponseEntity<Employee> getEmployee(@PathVariable Long id) {
 
         return employeeRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+
+    /*
+   Get an employee by email - /api/employee/email/example@something.com
+     */
+    @RequestMapping(value = "/email/{email}", method = RequestMethod.GET)
+    @ApiOperation(value = "Find employee with given email address.")
+    @ApiResponses( value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved employee with given email address."),
+            @ApiResponse(code = 404, message = "The employee with the given email address could not be found.")
+    })
+    public ResponseEntity<Employee> getEmployeeByEmail(@PathVariable String email) {
+
+        return employeeRepository.findByEmail(email)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
